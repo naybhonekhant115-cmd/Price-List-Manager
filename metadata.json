@@ -1,0 +1,6 @@
+{
+  "name": "Game Pricelist Telegram Bot",
+  "description": "Automated game pricelist scraper and Telegram bot manager with customizable margins, custom formatting, and admin controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

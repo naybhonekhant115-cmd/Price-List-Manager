@@ -1,0 +1,138 @@
+{
+  "Delta Force - Steam": [
+    {
+      "name": "Morphosis Supplies",
+      "originalPrice": 1905,
+      "finalPrice": 2100,
+      "profit": 195
+    },
+    {
+      "name": "Morphosis Supplies Advanced",
+      "originalPrice": 5751,
+      "finalPrice": 6350,
+      "profit": 599
+    },
+    {
+      "name": "18 Delta Coins",
+      "originalPrice": 1019,
+      "finalPrice": 1100,
+      "profit": 81
+    },
+    {
+      "name": "30 Delta Coins",
+      "originalPrice": 1751,
+      "finalPrice": 1950,
+      "profit": 199
+    },
+    {
+      "name": "60 Delta Coins",
+      "originalPrice": 3542,
+      "finalPrice": 3900,
+      "profit": 358
+    },
+    {
+      "name": "320 (300+20) Delta Coins",
+      "originalPrice": 17711,
+      "finalPrice": 19500,
+      "profit": 1789
+    },
+    {
+      "name": "460 (420+40) Delta Coins",
+      "originalPrice": 25733,
+      "finalPrice": 28300,
+      "profit": 2567
+    },
+    {
+      "name": "750 (680+70) Delta Coins",
+      "originalPrice": 35505,
+      "finalPrice": 39050,
+      "profit": 3545
+    },
+    {
+      "name": "1480 (1280+200) Delta Coins",
+      "originalPrice": 70968,
+      "finalPrice": 78050,
+      "profit": 7082
+    },
+    {
+      "name": "1980 (1680+300) Delta Coins",
+      "originalPrice": 88721,
+      "finalPrice": 97600,
+      "profit": 8879
+    },
+    {
+      "name": "3950 (3280+670) Delta Coins",
+      "originalPrice": 177401,
+      "finalPrice": 195150,
+      "profit": 17749
+    },
+    {
+      "name": "8100 (6480+1620) Delta Coins",
+      "originalPrice": 354842,
+      "finalPrice": 390350,
+      "profit": 35508
+    },
+    {
+      "name": "16200 (12960+3240) Delta Coins",
+      "originalPrice": 786162,
+      "finalPrice": 864800,
+      "profit": 78638
+    },
+    {
+      "name": "24300 (19440+4860) Delta Coins",
+      "originalPrice": 1179245,
+      "finalPrice": 1297150,
+      "profit": 117905
+    }
+  ],
+  "Gangster Mirage City": [
+    {
+      "name": "60",
+      "originalPrice": 3651,
+      "finalPrice": 4200,
+      "profit": 549
+    },
+    {
+      "name": "120",
+      "originalPrice": 7300,
+      "finalPrice": 8400,
+      "profit": 1100
+    },
+    {
+      "name": "180",
+      "originalPrice": 10951,
+      "finalPrice": 12600,
+      "profit": 1649
+    },
+    {
+      "name": "300",
+      "originalPrice": 18435,
+      "finalPrice": 21200,
+      "profit": 2765
+    },
+    {
+      "name": "680",
+      "originalPrice": 36868,
+      "finalPrice": 42400,
+      "profit": 5532
+    },
+    {
+      "name": "1280",
+      "originalPrice": 73734,
+      "finalPrice": 84800,
+      "profit": 11066
+    },
+    {
+      "name": "3280",
+      "originalPrice": 184381,
+      "finalPrice": 212050,
+      "profit": 27669
+    },
+    {
+      "name": "6480",
+      "originalPrice": 368715,
+      "finalPrice": 424000,
+      "profit": 55285
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "global": {
+    "header": "*{game}*",
+    "footer": "",
+    "lineSpacing": "single",
+    "itemPrefix": ""
+  },
+  "games": {
+    "Mobile Legends": {
+      "header": "Mobile Legends Price List",
+      "footer": "To buy - @levil_ft_sushitrash",
+      "lineSpacing": "single",
+      "itemPrefix": "",
+      "customTemplate": "Mobile Legends Price List\n\n55 - 3,600 ks\n165 - 10,750 ks\n275 - 17,250 ks\n565 - 35,400 ks\n\nWP - 6,850 ks\nWP x 2 - 13,700 ks\nWP x 3 - 20,550 ks\nWP x 4 - 27,450 ks\nWP x 5 - 34,300 ks\n\nTwilight - 36,550 ks\nWeekly Elite - 3,600 ks\nMonthly - 18,100 ks\n\n86 - 5,600 ks\n110 - 7,250 ks\n172 - 11,100 ks\n257 - 16,250 ks\n343 - 21,900 ks\n429 - 27,450 ks\n514 - 32,450 ks\n600 - 38,100 ks\n706 - 44,100 ks\n878 - 55,300 ks\n963 - 60,350 ks\n1049 - 66,000 ks\n1135 - 71,550 ks\n1412 - 88,200 ks\n2195 - 133,500 ks\n3688 - 222,750 ks\n5532 - 336,300 ks\n9288 - 558,550 ks\n\nTo buy - @levil_ft_sushitrash"
+    },
+    "Mobile Legends: Bang Bang": {
+      "header": "Mobile Legends Price List",
+      "footer": "To buy - @levil_ft_sushitrash",
+      "lineSpacing": "single",
+      "itemPrefix": "",
+      "customTemplate": "Mobile Legends Price List\n\n55 - 3,600 ks\n165 - 10,750 ks\n275 - 17,250 ks\n565 - 35,400 ks\n\nWP - 6,850 ks\nWP x 2 - 13,700 ks\nWP x 3 - 20,550 ks\nWP x 4 - 27,450 ks\nWP x 5 - 34,300 ks\n\nTwilight - 36,550 ks\nWeekly Elite - 3,600 ks\nMonthly - 18,100 ks\n\n86 - 5,600 ks\n110 - 7,250 ks\n172 - 11,100 ks\n257 - 16,250 ks\n343 - 21,900 ks\n429 - 27,450 ks\n514 - 32,450 ks\n600 - 38,100 ks\n706 - 44,100 ks\n878 - 55,300 ks\n963 - 60,350 ks\n1049 - 66,000 ks\n1135 - 71,550 ks\n1412 - 88,200 ks\n2195 - 133,500 ks\n3688 - 222,750 ks\n5532 - 336,300 ks\n9288 - 558,550 ks\n\nTo buy - @levil_ft_sushitrash"
+    }
+  }
+}

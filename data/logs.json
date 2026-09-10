@@ -1,0 +1,502 @@
+[
+  {
+    "timestamp": "2026-09-04T05:49:42.731Z",
+    "message": "Price updates: 1 edited in channels.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:39.314Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:39.309Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:36.706Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:33.315Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:33.311Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:27.483Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:27.477Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:49:23.782Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:42:06.776Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:42:03.166Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:42:03.162Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:41:59.240Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:40:12.536Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:40:12.532Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:40:03.131Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:40:03.127Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:38:08.360Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:38:08.356Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:35:07.940Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:35:04.609Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:35:04.606Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:34:59.629Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:31:30.872Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:31:27.160Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:31:27.118Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:31:23.207Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:29:06.427Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:29:06.424Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:28:52.375Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:28:52.371Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:27:52.645Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:27:52.641Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:24:42.125Z",
+    "message": "Scrape completed. No price changes detected.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:24:40.200Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:24:40.193Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:24:37.726Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:23:47.998Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:23:45.110Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:23:45.101Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:23:42.819Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:59.295Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:56.512Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:56.506Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:55.144Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:18.547Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:15.028Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:15.020Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:22:11.882Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:54.681Z",
+    "message": "Price updates: 1 sent to group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:51.392Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:51.385Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:49.579Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:34.917Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:34.914Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:27.724Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:27.720Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:21.494Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:17:16.906Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:14:51.809Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:14:51.806Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:14:39.481Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:14:39.477Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:11:21.784Z",
+    "message": "Admin @levil_ft_sushitrash updated format for Gangster Mirage City",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:04:04.423Z",
+    "message": "Price updates sent separately for 1 game(s) to Telegram group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:04:01.536Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:04:01.529Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:03:58.578Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:02:35.465Z",
+    "message": "Price updates sent separately for 1 game(s) to Telegram group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:02:32.530Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:02:32.521Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:02:29.740Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:02:06.335Z",
+    "message": "Admin @levil_ft_sushitrash added new supplier game \"Gangster Mirage City\" via Telegram bot.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:01:45.507Z",
+    "message": "No games configured in margins. Skipping scrape.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:01:44.712Z",
+    "message": "New game detected on supplier website: \"Gangster Mirage City\". Reminding admin to add it.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:01:43.671Z",
+    "message": "Game \"Mobile Legends\" removed from database and all configurations.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:01:43.665Z",
+    "message": "Supplier discontinued game \"Mobile Legends\". Removing from database and everywhere.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-04T05:01:43.661Z",
+    "message": "Supplier catalog scanned: 64 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:01:40.131Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:00:42.224Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:00:42.220Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T05:00:00.018Z",
+    "message": "Scraping error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+    "type": "error"
+  },
+  {
+    "timestamp": "2026-09-04T05:00:00.004Z",
+    "message": "Starting scheduled scrape...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T04:59:20.621Z",
+    "message": "Scraping error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+    "type": "error"
+  },
+  {
+    "timestamp": "2026-09-04T04:59:01.105Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T04:59:01.101Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T04:58:54.715Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T04:58:54.711Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T04:49:58.775Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-04T04:49:58.772Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:48:58.076Z",
+    "message": "Price updates sent separately for 2 game(s) to Telegram group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-03T10:48:54.107Z",
+    "message": "Scraping Delta Force - Steam at https://2gethermart.com/game/delta-force-steam...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:48:50.489Z",
+    "message": "Scraping Mobile Legends at https://2gethermart.com/game/mobile-legends...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:48:49.354Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:48:49.352Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:09:22.076Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:09:22.074Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:09:09.225Z",
+    "message": "Price updates sent to Telegram group.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-09-03T10:09:05.923Z",
+    "message": "Scraping Delta Force - Steam at https://2gethermart.com/game/delta-force-steam...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-09-03T10:09:02.892Z",
+    "message": "Scraping Mobile Legends at https://2gethermart.com/game/mobile-legends...",
+    "type": "info"
+  }
+]

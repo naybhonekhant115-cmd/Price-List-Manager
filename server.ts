@@ -159,9 +159,28 @@ async function startServer() {
   app.post('/api/scrape', async (req, res) => {
     try {
       const forceSend = req.body?.forceSend ?? true;
+      const sendToTelegram = req.body?.sendToTelegram ?? true;
       const game = req.body?.game;
-      await triggerManualScrape(forceSend, game);
-      res.json({ success: true, message: `Scraping triggered manually (forceSend: ${forceSend}${game ? `, game: ${game}` : ''})` });
+      const games = req.body?.games;
+      const targets = games && Array.isArray(games) && games.length > 0 ? games : game;
+
+      await triggerManualScrape(forceSend, targets, sendToTelegram);
+
+      let targetDesc = 'all games';
+      if (Array.isArray(targets)) {
+        targetDesc = `${targets.length} selected game(s) (${targets.join(', ')})`;
+      } else if (targets) {
+        targetDesc = `game "${targets}"`;
+      }
+
+      const actionDesc = sendToTelegram 
+        ? (forceSend ? 'scraped and sent to Telegram' : 'scraped and sent updates') 
+        : 'scraped and updated in database (no Telegram broadcast)';
+
+      res.json({ 
+        success: true, 
+        message: `Successfully ${actionDesc} for ${targetDesc}.` 
+      });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }

@@ -368,8 +368,8 @@ export function initBot() {
 
 
 
-    // /scrape command
-    bot.command('scrape', async (ctx) => {
+    // /scrape and /send commands - supports full scrape or individual game /scrape <gamename>
+    bot.command(['scrape', 'send'], async (ctx) => {
       const chatId = ctx.chat.id;
       const isGroup = process.env.TELEGRAM_GROUP_ID && chatId.toString() === process.env.TELEGRAM_GROUP_ID;
       const isAdmin = isUserAdmin(ctx.from.id, ctx.from.username);
@@ -378,9 +378,40 @@ export function initBot() {
         await ctx.reply('Unauthorized.');
         return;
       }
-      await ctx.reply('Starting manual scrape and update dispatch...');
+
+      const text = ctx.message.text || '';
+      const query = text.split(/\s+/).slice(1).join(' ').trim();
+
+      if (query) {
+        const margins = getMargins();
+        const catalog = getSupplierCatalog();
+        const allKnown = Array.from(new Set([
+          ...Object.keys(margins),
+          ...Object.keys(catalog.games || {}),
+          ...Object.keys(GAME_URLS)
+        ]));
+
+        const matchedGame = allKnown.find(g => g.toLowerCase() === query.toLowerCase()) ||
+                            allKnown.find(g => g.toLowerCase().includes(query.toLowerCase()));
+
+        if (!matchedGame) {
+          await ctx.reply(`❌ Game "${query}" not found. Available games:\n${allKnown.slice(0, 12).map(g => `• ${g}`).join('\n')}`);
+          return;
+        }
+
+        await ctx.reply(`⏳ Scraping & dispatching *${matchedGame}*...`, { parse_mode: 'Markdown' });
+        try {
+          await triggerManualScrape(true, matchedGame, true);
+          await ctx.reply(`✅ *${matchedGame}* scraped and dispatched successfully!`, { parse_mode: 'Markdown' });
+        } catch (e: any) {
+          await ctx.reply(`❌ Scrape failed for ${matchedGame}: ${e.message}`);
+        }
+        return;
+      }
+
+      await ctx.reply('Starting manual scrape and update dispatch for all games...');
       try {
-        await triggerManualScrape();
+        await triggerManualScrape(true);
         await ctx.reply('✅ Scrape and price update complete.');
       } catch (e: any) {
         await ctx.reply(`❌ Scrape failed: ${e.message}`);
@@ -1068,7 +1099,10 @@ The message above is the current pricelist for *${gameName}*.
       addLog(`Telegram bot error: ${err.message}`, 'error');
     });
 
-    bot.launch();
+    bot.launch().catch((err: any) => {
+      console.error('Telegraf launch error:', err);
+      addLog(`Telegram bot launch error: ${err.message}`, 'error');
+    });
 
     addLog('Telegram bot initialized successfully.', 'info');
 
@@ -1207,18 +1241,52 @@ async function sendIndividualGamesSelect(ctx: any, page: number = 0) {
   }
 }
 
-async function sendTelegramMessage(chatId: string, text: string) {
+function extractRetryAfter(err: any): number | null {
+    if (err?.response?.parameters?.retry_after) {
+        return Number(err.response.parameters.retry_after);
+    }
+    const match = /retry after (\d+)/i.exec(err?.message || '');
+    if (match && match[1]) {
+        return parseInt(match[1], 10);
+    }
+    return null;
+}
+
+async function sendTelegramMessage(chatId: string, text: string, maxRetries = 5) {
     if (!bot) return;
-    const sendChunk = async (chunkText: string) => {
-        try {
-            await bot!.telegram.sendMessage(chatId, chunkText, { parse_mode: 'HTML' });
-        } catch (err: any) {
-            await bot!.telegram.sendMessage(chatId, chunkText);
+    const sendChunkWithRetry = async (chunkText: string) => {
+        for (let attempt = 0; attempt < maxRetries; attempt++) {
+            try {
+                await bot!.telegram.sendMessage(chatId, chunkText, { parse_mode: 'HTML' });
+                return;
+            } catch (err: any) {
+                const retryAfter = extractRetryAfter(err);
+                if (retryAfter) {
+                    addLog(`Telegram flood limit (429). Pausing for ${retryAfter + 1}s before retry (attempt ${attempt + 1}/${maxRetries})...`, 'alert');
+                    await new Promise(r => setTimeout(r, (retryAfter + 1) * 1000));
+                    continue;
+                }
+                // Fallback attempt without HTML if HTML parsing fails
+                try {
+                    await bot!.telegram.sendMessage(chatId, chunkText);
+                    return;
+                } catch (fallbackErr: any) {
+                    const fallbackRetry = extractRetryAfter(fallbackErr);
+                    if (fallbackRetry) {
+                        addLog(`Telegram flood limit (429). Pausing for ${fallbackRetry + 1}s before retry...`, 'alert');
+                        await new Promise(r => setTimeout(r, (fallbackRetry + 1) * 1000));
+                        continue;
+                    }
+                    if (attempt === maxRetries - 1) {
+                        throw fallbackErr;
+                    }
+                }
+            }
         }
     };
 
     if (text.length <= 4000) {
-        await sendChunk(text);
+        await sendChunkWithRetry(text);
         return;
     }
 
@@ -1226,15 +1294,15 @@ async function sendTelegramMessage(chatId: string, text: string) {
     let chunk = '';
     for (const line of lines) {
         if ((chunk + '\n' + line).length > 4000) {
-            await sendChunk(chunk.trim());
-            await new Promise(r => setTimeout(r, 400));
+            await sendChunkWithRetry(chunk.trim());
+            await new Promise(r => setTimeout(r, 1000));
             chunk = line;
         } else {
             chunk += (chunk ? '\n' : '') + line;
         }
     }
     if (chunk.trim()) {
-        await sendChunk(chunk.trim());
+        await sendChunkWithRetry(chunk.trim());
     }
 }
 
@@ -1418,9 +1486,13 @@ export async function syncSupplierCatalog(browserContext?: any): Promise<{
     return { deletedGames, newGames, totalLive };
 }
 
-export async function triggerManualScrape(forceSend: boolean = true, targetGame?: string) {
+export async function triggerManualScrape(
+    forceSend: boolean = true, 
+    targetGame?: string | string[], 
+    sendToTelegram: boolean = true
+) {
     try {
-        await scrapePrices(forceSend, targetGame);
+        await scrapePrices(forceSend, targetGame, sendToTelegram);
     } catch (e: any) {
         addLog(`Manual scrape failed: ${e.message}`, 'error');
         throw e;
@@ -1512,28 +1584,41 @@ export function parseTelegramPostLink(link: string): { chatId: string, messageId
     return null;
 }
 
-export async function scrapePrices(forceSend: boolean = false, targetGame?: string) {
+export async function scrapePrices(
+    forceSend: boolean = false, 
+    targetGame?: string | string[], 
+    sendToTelegram: boolean = true
+) {
   try {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
 
+    const isTargeted = !!targetGame && (Array.isArray(targetGame) ? targetGame.length > 0 : true);
+
     // 1. Sync supplier catalog to detect discontinued or newly added games
-    try {
-      await syncSupplierCatalog(context);
-    } catch (catErr: any) {
-      addLog(`Supplier catalog sync warning: ${catErr.message}`, 'error');
+    // ONLY during full general scrapes. Skip during targeted/selected game scrapes to make them fast and avoid flood limits.
+    if (!isTargeted) {
+      try {
+        await syncSupplierCatalog(context);
+      } catch (catErr: any) {
+        addLog(`Supplier catalog sync warning: ${catErr.message}`, 'error');
+      }
     }
 
-    // 2. Refresh margins in case any discontinued games were removed
+    // 2. Resolve list of games to scrape
     const margins = getMargins();
-    let gamesToScrape = Object.keys(margins);
+    const catalog = getSupplierCatalog();
+    let gamesToScrape: string[] = [];
     
-    if (targetGame && gamesToScrape.includes(targetGame)) {
-      gamesToScrape = [targetGame];
+    if (isTargeted) {
+      const targets = Array.isArray(targetGame) ? targetGame : [targetGame];
+      gamesToScrape = Array.from(new Set(targets.map(t => t.trim()).filter(Boolean)));
+    } else {
+      gamesToScrape = Object.keys(margins);
     }
     
     if (gamesToScrape.length === 0) {
-        addLog('No games configured in margins. Skipping scrape.', 'info');
+        addLog('No games configured or selected for scraping.', 'info');
         await browser.close();
         return;
     }
@@ -1544,7 +1629,10 @@ export async function scrapePrices(forceSend: boolean = false, targetGame?: stri
     const itemsToSave = getScrapedItems();
 
     for (const gameName of gamesToScrape) {
-        const url = GAME_URLS[gameName] || `https://2gethermart.com/game/${gameName.toLowerCase().replace(/\s+/g, '-')}`;
+        const url = GAME_URLS[gameName] || 
+                    (catalog.games && catalog.games[gameName]) ||
+                    (catalog.newDetectedGames && catalog.newDetectedGames[gameName]?.url) ||
+                    `https://2gethermart.com/game/${gameName.toLowerCase().replace(/\s+/g, '-')}`;
         scrapedData[gameName] = {};
         const marginConfig = margins[gameName] || { defaultMargin: 0, items: {} };
 
@@ -1703,7 +1791,10 @@ export async function scrapePrices(forceSend: boolean = false, targetGame?: stri
         return;
     }
 
-    if (bot) {
+    if (!sendToTelegram) {
+        const names = gamesToSend.map(g => g.game).join(', ');
+        addLog(`Scraped ${gamesToSend.length} game(s) successfully (${names}). Database prices and margins updated (no Telegram message sent).`, 'info');
+    } else if (bot) {
         let sentCount = 0;
         let editedCount = 0;
         for (const g of gamesToSend) {
@@ -1715,13 +1806,23 @@ export async function scrapePrices(forceSend: boolean = false, targetGame?: stri
                     if (g.postLink) {
                         const parsed = parseTelegramPostLink(g.postLink);
                         if (parsed) {
-                            try {
-                                await bot.telegram.editMessageText(parsed.chatId, parsed.messageId, undefined, g.text, { parse_mode: 'HTML' });
-                                editedCount++;
-                                handled = true;
-                                await new Promise(r => setTimeout(r, 500));
-                            } catch (editErr: any) {
-                                addLog(`Failed to edit channel post for ${g.game}: ${editErr.message}`, 'error');
+                            for (let attempt = 0; attempt < 3; attempt++) {
+                                try {
+                                    await bot.telegram.editMessageText(parsed.chatId, parsed.messageId, undefined, g.text, { parse_mode: 'HTML' });
+                                    editedCount++;
+                                    handled = true;
+                                    await new Promise(r => setTimeout(r, 2500));
+                                    break;
+                                } catch (editErr: any) {
+                                    const retrySec = extractRetryAfter(editErr);
+                                    if (retrySec) {
+                                        addLog(`Rate limited editing post for ${g.game}. Waiting ${retrySec + 1}s...`, 'alert');
+                                        await new Promise(r => setTimeout(r, (retrySec + 1) * 1000));
+                                        if (attempt < 2) continue;
+                                    }
+                                    addLog(`Failed to edit channel post for ${g.game}: ${editErr.message}`, 'error');
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1730,9 +1831,14 @@ export async function scrapePrices(forceSend: boolean = false, targetGame?: stri
                     if (!handled && process.env.TELEGRAM_GROUP_ID) {
                         await sendTelegramMessage(process.env.TELEGRAM_GROUP_ID, g.text);
                         sentCount++;
-                        await new Promise(r => setTimeout(r, 500));
+                        await new Promise(r => setTimeout(r, 2500));
                     }
                 } catch (e: any) {
+                    const retrySec = extractRetryAfter(e);
+                    if (retrySec) {
+                        addLog(`Telegram flood limit hit (${retrySec}s). Pausing queue for ${retrySec + 1}s...`, 'alert');
+                        await new Promise(r => setTimeout(r, (retrySec + 1) * 1000));
+                    }
                     addLog(`Failed to process message for ${g.game}: ${e.message}`, 'error');
                 }
             }
@@ -1748,7 +1854,7 @@ export async function scrapePrices(forceSend: boolean = false, targetGame?: stri
         }
     }
 
-    lastPrices = scrapedData;
+    lastPrices = { ...lastPrices, ...scrapedData };
 
   } catch (error: any) {
     console.error('Error during scraping:', error);

@@ -1,5 +1,130 @@
 [
   {
+    "timestamp": "2026-10-09T05:15:13.762Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:15:13.759Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:15:04.301Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:15:04.296Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:15:00.039Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:15:00.036Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:13:33.819Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:13:33.814Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:12:09.517Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:12:09.513Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:12:04.440Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:12:04.436Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:11:13.086Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:11:13.081Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:14.657Z",
+    "message": "Price updates: 1 edited in channels.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:11.054Z",
+    "message": "Scraping Gangster Mirage City at https://2gethermart.com/game/gangster-mirage-city-...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:09.960Z",
+    "message": "New game detected on supplier website: \"Aniimo (Provider2)\". Reminding admin to add it.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:09.102Z",
+    "message": "New game detected on supplier website: \"Aniimo (Provider 1)\". Reminding admin to add it.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:08.332Z",
+    "message": "New game detected on supplier website: \"Solo Leveling: Arise\". Reminding admin to add it.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:06.921Z",
+    "message": "New game detected on supplier website: \"MLBB Ban\". Reminding admin to add it.",
+    "type": "alert"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:06.911Z",
+    "message": "Supplier catalog scanned: 68 games found online.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:02.193Z",
+    "message": "Scanning supplier catalog at https://2gethermart.com...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T05:00:00.004Z",
+    "message": "Starting scheduled scrape...",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T04:48:57.960Z",
+    "message": "Telegram bot initialized successfully.",
+    "type": "info"
+  },
+  {
+    "timestamp": "2026-10-09T04:48:57.956Z",
+    "message": "Server starting up. Token exists: true",
+    "type": "info"
+  },
+  {
     "timestamp": "2026-09-04T05:49:42.731Z",
     "message": "Price updates: 1 edited in channels.",
     "type": "alert"
@@ -373,130 +498,5 @@
     "timestamp": "2026-09-04T05:01:44.712Z",
     "message": "New game detected on supplier website: \"Gangster Mirage City\". Reminding admin to add it.",
     "type": "alert"
-  },
-  {
-    "timestamp": "2026-09-04T05:01:43.671Z",
-    "message": "Game \"Mobile Legends\" removed from database and all configurations.",
-    "type": "alert"
-  },
-  {
-    "timestamp": "2026-09-04T05:01:43.665Z",
-    "message": "Supplier discontinued game \"Mobile Legends\". Removing from database and everywhere.",
-    "type": "alert"
-  },
-  {
-    "timestamp": "2026-09-04T05:01:43.661Z",
-    "message": "Supplier catalog scanned: 64 games found online.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T05:01:40.131Z",
-    "message": "Scanning supplier catalog at https://2gethermart.com...",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T05:00:42.224Z",
-    "message": "Telegram bot initialized successfully.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T05:00:42.220Z",
-    "message": "Server starting up. Token exists: true",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T05:00:00.018Z",
-    "message": "Scraping error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
-    "type": "error"
-  },
-  {
-    "timestamp": "2026-09-04T05:00:00.004Z",
-    "message": "Starting scheduled scrape...",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T04:59:20.621Z",
-    "message": "Scraping error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
-    "type": "error"
-  },
-  {
-    "timestamp": "2026-09-04T04:59:01.105Z",
-    "message": "Telegram bot initialized successfully.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T04:59:01.101Z",
-    "message": "Server starting up. Token exists: true",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T04:58:54.715Z",
-    "message": "Telegram bot initialized successfully.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T04:58:54.711Z",
-    "message": "Server starting up. Token exists: true",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T04:49:58.775Z",
-    "message": "Telegram bot initialized successfully.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-04T04:49:58.772Z",
-    "message": "Server starting up. Token exists: true",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:48:58.076Z",
-    "message": "Price updates sent separately for 2 game(s) to Telegram group.",
-    "type": "alert"
-  },
-  {
-    "timestamp": "2026-09-03T10:48:54.107Z",
-    "message": "Scraping Delta Force - Steam at https://2gethermart.com/game/delta-force-steam...",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:48:50.489Z",
-    "message": "Scraping Mobile Legends at https://2gethermart.com/game/mobile-legends...",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:48:49.354Z",
-    "message": "Telegram bot initialized successfully.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:48:49.352Z",
-    "message": "Server starting up. Token exists: true",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:09:22.076Z",
-    "message": "Telegram bot initialized successfully.",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:09:22.074Z",
-    "message": "Server starting up. Token exists: true",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:09:09.225Z",
-    "message": "Price updates sent to Telegram group.",
-    "type": "alert"
-  },
-  {
-    "timestamp": "2026-09-03T10:09:05.923Z",
-    "message": "Scraping Delta Force - Steam at https://2gethermart.com/game/delta-force-steam...",
-    "type": "info"
-  },
-  {
-    "timestamp": "2026-09-03T10:09:02.892Z",
-    "message": "Scraping Mobile Legends at https://2gethermart.com/game/mobile-legends...",
-    "type": "info"
   }
 ]

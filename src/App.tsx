@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, RefreshCw, AlertTriangle, Info, Bell, Gamepad2, Percent, ChevronDown, ChevronRight, Trash2, Globe, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Settings, RefreshCw, AlertTriangle, Info, Bell, Gamepad2, Percent, ChevronDown, ChevronRight, Trash2, Globe, ExternalLink, Sparkles, CheckCircle2, Send, CheckSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 type MarginConfig = {
@@ -28,6 +28,7 @@ export default function App() {
   const [newGame, setNewGame] = useState('');
   const [newMargin, setNewMargin] = useState('');
   const [isScraping, setIsScraping] = useState(false);
+  const [scrapingTarget, setScrapingTarget] = useState<string | null>(null);
   const [isSyncingSupplier, setIsSyncingSupplier] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
@@ -205,19 +206,49 @@ export default function App() {
     }
   };
 
-  const handleManualScrape = async (forceSend: boolean, game?: string) => {
+  const handleScrape = async (options: {
+    games?: string[];
+    game?: string;
+    forceSend?: boolean;
+    sendToTelegram?: boolean;
+  }) => {
+    const { games, game, forceSend = true, sendToTelegram = true } = options;
+    const targetKey = game 
+      ? `${game}:${sendToTelegram ? 'send' : 'scrape'}`
+      : (games && games.length > 0 
+          ? (sendToTelegram ? 'selected:send' : 'selected:scrape')
+          : (sendToTelegram ? (forceSend ? 'all' : 'updates') : 'all:scrape'));
+
     setIsScraping(true);
-    setStatusMessage(`Scraping initiated (${game ? `single game: ${game}` : forceSend ? 'sending all games' : 'sending updates only'})...`);
+    setScrapingTarget(targetKey);
+
+    const desc = game 
+      ? `"${game}"` 
+      : games && games.length > 0 
+      ? `${games.length} selected game(s)` 
+      : 'all games';
+
+    const actionText = sendToTelegram 
+      ? (forceSend ? 'Scraping & broadcasting to Telegram' : 'Scraping & broadcasting updates') 
+      : 'Scraping prices from supplier website (no Telegram message)';
+
+    setStatusMessage(`${actionText} for ${desc}...`);
+
     try {
       const res = await fetch('/api/scrape', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ forceSend, game })
+        body: JSON.stringify({ 
+          forceSend, 
+          game, 
+          games, 
+          sendToTelegram 
+        })
       });
       const data = await res.json();
       if (data.success) {
-        setStatusMessage(data.message || 'Scraping triggered and broadcasted successfully.');
-        setTimeout(fetchDashboardData, 2000); 
+        setStatusMessage(data.message || `Completed for ${desc}.`);
+        setTimeout(fetchDashboardData, 1500); 
       } else {
         setStatusMessage(`Scraping failed: ${data.error}`);
       }
@@ -225,7 +256,26 @@ export default function App() {
        setStatusMessage('Network error triggering scrape.');
     } finally {
       setIsScraping(false);
+      setScrapingTarget(null);
       setTimeout(() => setStatusMessage(''), 5000);
+    }
+  };
+
+  const handleSelectAllGames = () => {
+    const allGames = Object.keys(margins);
+    if (selectedGames.size === allGames.length && allGames.length > 0) {
+      setSelectedGames(new Set());
+      setSelectedItems(new Set());
+    } else {
+      const nextGames = new Set(allGames);
+      const nextItems = new Set<string>();
+      allGames.forEach(g => {
+        if (items[g]) {
+          items[g].forEach(item => nextItems.add(`${g}::${item.name}`));
+        }
+      });
+      setSelectedGames(nextGames);
+      setSelectedItems(nextItems);
     }
   };
 
@@ -302,22 +352,31 @@ export default function App() {
               {isSyncingSupplier ? 'Scanning Supplier...' : 'Check Supplier Games'}
             </button>
             <button
-              onClick={() => handleManualScrape(false)}
+              onClick={() => handleScrape({ sendToTelegram: false })}
+              disabled={isScraping}
+              className="flex items-center gap-2 bg-white border border-neutral-300 text-neutral-700 px-4 py-2.5 rounded-lg hover:bg-neutral-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-xs text-sm"
+              title="Scrape latest prices for all games without broadcasting to Telegram"
+            >
+              <RefreshCw className={`w-4 h-4 text-neutral-600 ${scrapingTarget === 'all:scrape' ? 'animate-spin' : ''}`} />
+              {scrapingTarget === 'all:scrape' ? 'Scraping...' : 'Scrape All Prices'}
+            </button>
+            <button
+              onClick={() => handleScrape({ forceSend: false, sendToTelegram: true })}
               disabled={isScraping}
               className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm text-sm"
               title="Scrape and broadcast only games with price changes"
             >
-              <RefreshCw className={`w-4 h-4 ${isScraping ? 'animate-spin' : ''}`} />
-              {isScraping ? 'Scraping...' : 'Send Updates Only'}
+              <Send className={`w-4 h-4 ${scrapingTarget === 'updates' ? 'animate-pulse' : ''}`} />
+              {scrapingTarget === 'updates' ? 'Sending Updates...' : 'Send Updates Only'}
             </button>
             <button
-              onClick={() => handleManualScrape(true)}
+              onClick={() => handleScrape({ forceSend: true, sendToTelegram: true })}
               disabled={isScraping}
               className="flex items-center gap-2 bg-neutral-900 text-white px-4 py-2.5 rounded-lg hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm text-sm"
-              title="Scrape and broadcast all configured games"
+              title="Scrape and broadcast all configured games to Telegram"
             >
-              <RefreshCw className={`w-4 h-4 ${isScraping ? 'animate-spin' : ''}`} />
-              {isScraping ? 'Scraping...' : 'Send All Latest Games'}
+              <Send className={`w-4 h-4 ${scrapingTarget === 'all' ? 'animate-pulse' : ''}`} />
+              {scrapingTarget === 'all' ? 'Broadcasting...' : 'Send All Latest Games'}
             </button>
           </div>
         </header>
@@ -452,37 +511,102 @@ export default function App() {
 
                 {/* Bulk Actions */}
                 <AnimatePresence>
-                  {totalSelected > 0 && (
+                  {(selectedGames.size > 0 || selectedItems.size > 0) && (
                     <motion.div 
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="mb-6 overflow-hidden"
+                      className="mb-6 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-50/90 via-white to-indigo-50/50 border border-indigo-200 shadow-xs p-4"
                     >
-                      <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <span className="text-sm font-medium text-indigo-900">
-                          {totalSelected} item{totalSelected !== 1 ? 's' : ''} selected
-                        </span>
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
-                          <input 
-                            type="number" 
-                            value={bulkMargin}
-                            onChange={e => setBulkMargin(e.target.value)}
-                            placeholder="Margin %"
-                            className="w-28 px-3 py-2 bg-white border border-indigo-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
-                          />
+                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-xs shadow-xs">
+                            {selectedGames.size}
+                          </div>
+                          <div>
+                            <span className="text-sm font-semibold text-indigo-950 block">
+                              {selectedGames.size} game{selectedGames.size !== 1 ? 's' : ''} selected
+                              {selectedItems.size > 0 && <span className="text-xs font-normal text-indigo-700 ml-1.5">({selectedItems.size} items)</span>}
+                            </span>
+                            <span className="text-xs text-indigo-600">
+                              Trigger targeted scrape, broadcast to Telegram, or update margins
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2">
+                          {/* Scrape Selected Games (database update, no Telegram) */}
+                          {selectedGames.size > 0 && (
+                            <button
+                              onClick={() => handleScrape({ games: Array.from(selectedGames), sendToTelegram: false })}
+                              disabled={isScraping}
+                              className="flex items-center gap-1.5 px-3 py-2 bg-white border border-indigo-200 hover:border-indigo-300 text-indigo-900 rounded-lg text-xs font-medium hover:bg-indigo-50 transition-colors shadow-2xs disabled:opacity-50"
+                              title="Scrape selected games from supplier without sending to Telegram"
+                            >
+                              <RefreshCw className={`w-3.5 h-3.5 text-indigo-600 ${scrapingTarget === 'selected:scrape' ? 'animate-spin' : ''}`} />
+                              <span>Scrape Selected</span>
+                            </button>
+                          )}
+
+                          {/* Send Selected Games to Telegram */}
+                          {selectedGames.size > 0 && (
+                            <button
+                              onClick={() => handleScrape({ games: Array.from(selectedGames), sendToTelegram: true, forceSend: true })}
+                              disabled={isScraping}
+                              className="flex items-center gap-1.5 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-medium transition-colors shadow-2xs disabled:opacity-50"
+                              title="Scrape and broadcast or edit Telegram posts for selected games"
+                            >
+                              <Send className={`w-3.5 h-3.5 ${scrapingTarget === 'selected:send' ? 'animate-pulse' : ''}`} />
+                              <span>Send Selected Games</span>
+                            </button>
+                          )}
+
+                          {/* Bulk Margin input & button */}
+                          <div className="flex items-center gap-1.5 bg-white border border-neutral-200 rounded-lg p-1">
+                            <input 
+                              type="number" 
+                              value={bulkMargin}
+                              onChange={e => setBulkMargin(e.target.value)}
+                              placeholder="Margin %"
+                              className="w-20 px-2 py-1 bg-transparent focus:outline-none text-xs"
+                            />
+                            <button
+                              onClick={handleBulkUpdate}
+                              disabled={!bulkMargin}
+                              className="px-2.5 py-1 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium rounded-md disabled:opacity-40 transition-colors"
+                            >
+                              Set Margin
+                            </button>
+                          </div>
+
                           <button
-                            onClick={handleBulkUpdate}
-                            disabled={!bulkMargin}
-                            className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+                            onClick={() => { setSelectedGames(new Set()); setSelectedItems(new Set()); }}
+                            className="px-2.5 py-1.5 text-xs text-neutral-500 hover:text-neutral-800 transition-colors"
                           >
-                            Apply to Selected
+                            Clear
                           </button>
                         </div>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+                {/* List Header / Select All */}
+                <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-100/75 rounded-lg mb-2 text-xs font-semibold text-neutral-600">
+                  <div className="flex items-center gap-3">
+                    <input 
+                      type="checkbox"
+                      checked={Object.keys(margins).length > 0 && selectedGames.size === Object.keys(margins).length}
+                      onChange={handleSelectAllGames}
+                      title="Select / Deselect all games"
+                      className="w-4 h-4 text-indigo-600 rounded border-neutral-300 focus:ring-indigo-500 cursor-pointer"
+                    />
+                    <span>Game / Catalog ({Object.keys(margins).length})</span>
+                  </div>
+                  <div className="flex items-center gap-6 pr-2">
+                    <span>Default Margin</span>
+                  </div>
+                </div>
 
                 {/* List */}
                 <div className="space-y-3">
@@ -495,7 +619,7 @@ export default function App() {
                              type="checkbox"
                              checked={selectedGames.has(game)}
                              onChange={(e) => toggleGameSelection(game, e.target.checked)}
-                             className="w-4 h-4 text-indigo-600 rounded border-neutral-300 focus:ring-indigo-500"
+                             className="w-4 h-4 text-indigo-600 rounded border-neutral-300 focus:ring-indigo-500 cursor-pointer"
                            />
                            <button 
                               onClick={() => toggleExpanded(game)}
@@ -504,15 +628,29 @@ export default function App() {
                              {expandedGames.has(game) ? <ChevronDown className="w-4 h-4 text-neutral-400" /> : <ChevronRight className="w-4 h-4 text-neutral-400" />}
                              <span className="font-medium text-neutral-700">{game}</span>
                            </button>
-                           <button
-                             onClick={(e) => { e.stopPropagation(); handleManualScrape(true, game); }}
-                             disabled={isScraping}
-                             className="ml-2 p-1.5 text-neutral-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors disabled:opacity-50 flex items-center gap-1 text-xs font-medium"
-                             title="Scrape and send this specific game"
-                           >
-                             <RefreshCw className={`w-3.5 h-3.5 ${isScraping ? 'animate-spin' : ''}`} />
-                             Scrape
-                           </button>
+                           
+                           {/* Individual Quick Action Buttons: Scrape (prices only) & Send (to Telegram) */}
+                           <div className="flex items-center gap-1.5 ml-2">
+                             <button
+                               onClick={(e) => { e.stopPropagation(); handleScrape({ game, sendToTelegram: false }); }}
+                               disabled={isScraping}
+                               className="p-1 px-2 text-xs font-medium rounded-md bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition-colors disabled:opacity-50 flex items-center gap-1"
+                               title="Scrape prices for this game only without sending to Telegram"
+                             >
+                               <RefreshCw className={`w-3 h-3 text-neutral-500 ${scrapingTarget === `${game}:scrape` ? 'animate-spin' : ''}`} />
+                               <span>Scrape</span>
+                             </button>
+
+                             <button
+                               onClick={(e) => { e.stopPropagation(); handleScrape({ game, sendToTelegram: true, forceSend: true }); }}
+                               disabled={isScraping}
+                               className="p-1 px-2 text-xs font-medium rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition-colors disabled:opacity-50 flex items-center gap-1"
+                               title="Scrape & broadcast or edit Telegram post for this game"
+                             >
+                               <Send className={`w-3 h-3 text-indigo-600 ${scrapingTarget === `${game}:send` ? 'animate-pulse' : ''}`} />
+                               <span>Send</span>
+                             </button>
+                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <input 

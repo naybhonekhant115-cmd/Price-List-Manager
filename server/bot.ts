@@ -366,6 +366,8 @@ export function initBot() {
       await ctx.reply(`✅ Added \`${target}\` to Telegram Bot Admins.`, { parse_mode: 'Markdown' });
     });
 
+
+
     // /scrape command
     bot.command('scrape', async (ctx) => {
       const chatId = ctx.chat.id;
